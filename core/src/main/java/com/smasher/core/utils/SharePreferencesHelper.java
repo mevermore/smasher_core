@@ -100,7 +100,7 @@ public class SharePreferencesHelper {
     /**
      * 获取数据的方法
      *
-     * @param key
+     * @param key key
      * @return String
      */
     public String getString(String key) {

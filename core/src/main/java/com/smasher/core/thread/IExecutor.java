@@ -29,7 +29,7 @@ public class IExecutor extends ThreadPoolExecutor {
                     MAX_POOL_SIZE,
                     KEEP_ALIVE_TIME,
                     TimeUnit.MILLISECONDS,
-                    new LinkedBlockingQueue<Runnable>());
+                    new LinkedBlockingQueue<>());
         }
         return INSTANCE;
     }

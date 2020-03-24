@@ -12,10 +12,16 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class DiskUtil {
-    public static final int SIZE_TYPE_B = 1;// 获取文件大小单位为B的double值
-    public static final int SIZE_TYPE_KB = 2;// 获取文件大小单位为KB的double值
-    public static final int SIZE_TYPE_MB = 3;// 获取文件大小单位为MB的double值
-    public static final int SIZE_TYPE_GB = 4;// 获取文件大小单位为GB的double值
+    /*获取文件大小单位为B的double值*/
+    public static final int SIZE_TYPE_B = 1;
+    /*获取文件大小单位为KB的double值*/
+    public static final int SIZE_TYPE_KB = 2;
+    /* 获取文件大小单位为MB的double值*/
+    public static final int SIZE_TYPE_MB = 3;
+    /* 获取文件大小单位为GB的double值*/
+    public static final int SIZE_TYPE_GB = 4;
+
+    public static final long limit = 30L;
 
     public static boolean checkSDCard() {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -26,7 +32,7 @@ public class DiskUtil {
 
     public static String checkDisk() {
         long internalAvailable = getAvailableSize(ApplicationContext.getInstance().getFilesDir().getAbsolutePath());
-        if (internalAvailable < 30) {
+        if (internalAvailable < limit) {
             return ApplicationContext.getInstance().getString(R.string.no_sd_space);
         }
 
@@ -49,7 +55,8 @@ public class DiskUtil {
             StatFs stat = new StatFs(path);
             long blockSize = stat.getBlockSize();
             long availableBlocks = stat.getAvailableBlocks();
-            return (availableBlocks * blockSize) / 1024 / 1024;//MB
+            //MB
+            return (availableBlocks * blockSize) / 1024 / 1024;
         } catch (Exception e) {
             e.printStackTrace();
         }

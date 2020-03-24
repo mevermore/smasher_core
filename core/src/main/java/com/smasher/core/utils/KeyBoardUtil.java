@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 
 /**
  * detail: 软键盘相关辅助类
- * Created by Ttt
+ * @author moyu
  */
 public final class KeyBoardUtil {
 

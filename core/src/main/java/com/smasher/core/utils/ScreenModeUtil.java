@@ -11,8 +11,9 @@ import android.view.WindowManager;
  */
 public class ScreenModeUtil {
 
-    // Build.VERSION.SDK_INT < 19
+
     private static void setFullScreenLowVersion(Activity activity, boolean fullScreen) {
+        /* Build.VERSION.SDK_INT < 19*/
         if (fullScreen) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);

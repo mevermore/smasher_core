@@ -103,5 +103,14 @@ public class ThreadPool {
         if (mLowPool != null && !mLowPool.isShutdown()) {
             mLowPool.shutdown();
         }
+        if (mDownloadPool != null && !mDownloadPool.isShutdown()) {
+            mDownloadPool.shutdown();
+        }
+        if (mLogWritePool != null && !mLogWritePool.isShutdown()) {
+            mLogWritePool.shutdown();
+        }
+        if (mGameDownLoadPool != null && !mGameDownLoadPool.isShutdown()) {
+            mGameDownLoadPool.shutdown();
+        }
     }
 }

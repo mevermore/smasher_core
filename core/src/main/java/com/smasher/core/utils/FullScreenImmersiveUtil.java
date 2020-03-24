@@ -7,14 +7,16 @@ import android.view.WindowManager;
 
 /**
  * 全屏模式工具类
+ *
+ * @author moyu
  */
 public class FullScreenImmersiveUtil {
 
     /**
      * 4.4以下隐藏状态栏
      *
-     * @param activity
-     * @param fullScreen
+     * @param activity   activity
+     * @param fullScreen fullScreen
      */
     public static void setFullScreenOld(Activity activity, boolean fullScreen) {
         if (fullScreen) {
@@ -66,7 +68,7 @@ public class FullScreenImmersiveUtil {
     /**
      * 显示状态栏和虚拟导航
      *
-     * @param view
+     * @param view view
      */
     public static void showAllSystemUI(View view) {
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
@@ -75,7 +77,7 @@ public class FullScreenImmersiveUtil {
     /**
      * 显示状态栏
      *
-     * @param activity
+     * @param activity activity
      */
     public static void showSystemUI(Activity activity, boolean hideNav) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -97,7 +99,7 @@ public class FullScreenImmersiveUtil {
     /**
      * 隐藏状态栏和虚拟导航
      *
-     * @param view
+     * @param view view
      */
     public static void hideSystemUI(View view, boolean hideNav) {
         if (hideNav) {
@@ -121,7 +123,7 @@ public class FullScreenImmersiveUtil {
     /**
      * 隐藏状态栏和虚拟导航
      *
-     * @param view
+     * @param view view
      */
     public static void hideSystemUISticky(View view, boolean hideNav) {
         if (hideNav) {
@@ -146,7 +148,7 @@ public class FullScreenImmersiveUtil {
     /**
      * 隐藏状态栏
      *
-     * @param view
+     * @param view view
      */
     public static void hideSystemStatusBar(View view, boolean hideNav) {
         if (hideNav) {

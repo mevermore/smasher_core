@@ -20,15 +20,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author moyu
+ */
 public class PackageUtil {
 
     public static int checkPackageInstalled(Context ctx, String packageName) {
         PackageManager packageManager = ctx.getPackageManager();
         // 获取所有已安装程序的包信息
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        for (int i = 0; i < pinfo.size(); i++) {
-            if (pinfo.get(i).packageName.equalsIgnoreCase(packageName))
+        List<PackageInfo> pInfo = packageManager.getInstalledPackages(0);
+        for (int i = 0; i < pInfo.size(); i++) {
+            if (pInfo.get(i).packageName.equalsIgnoreCase(packageName)) {
                 return 1;
+            }
         }
         return 0;
     }
