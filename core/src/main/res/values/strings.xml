@@ -1,0 +1,4 @@
+<resources>
+    <string name="no_sd_space">手机存储空间不足，清理后再使用</string>
+    <string name="sd_error">SD卡状态异常，部分功能将无法使用</string>
+</resources>
