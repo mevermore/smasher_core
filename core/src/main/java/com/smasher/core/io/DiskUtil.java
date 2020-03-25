@@ -37,8 +37,6 @@ public class DiskUtil {
         }
 
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            // TODO: 2020/3/24 0024 modify filepath
-            //AppPath.getRootPath()
             String path = ApplicationContext.getInstance().getFilesDir().getPath();
             long sdcardAvailable = getAvailableSize(path);
             if (sdcardAvailable < 30) {
