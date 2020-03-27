@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
+import com.smasher.core.log.Logger;
 import com.smasher.core.path.Path;
 
 import java.io.File;
@@ -64,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Fonts: " + Path.getFontsPath());
         Log.d(TAG, "Image: " + Path.getImagePath());
         Log.d(TAG, "Log: " + Path.getLogPath());
-        Log.d(TAG, "Picture: " + Path.getPicturePath());
+
+        Logger.saveLogToFile("test error is save");
 
     }
 }

@@ -39,14 +39,4 @@ public class IExecutor extends ThreadPoolExecutor {
                       TimeUnit unit, BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
-
-
-    public void executeRunnable(Runnable runnable) {
-        execute(runnable);
-    }
-
-    public <T> Future<T> submitFuture(Callable<T> callable) {
-        return submit(callable);
-    }
-
 }

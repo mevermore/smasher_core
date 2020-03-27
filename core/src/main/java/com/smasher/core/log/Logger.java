@@ -3,7 +3,7 @@ package com.smasher.core.log;
 import android.util.Log;
 
 import com.smasher.core.io.FileUtil;
-import com.smasher.core.other.ApplicationContext;
+import com.smasher.core.path.Path;
 import com.smasher.core.thread.ThreadPool;
 
 import java.io.File;
@@ -123,13 +123,15 @@ public class Logger {
         ThreadPool.getInstance(ThreadPool.PRIORITY_WRITE_LOG).submit(new Runnable() {
             @Override
             public void run() {
-                Date now = new Date();
-                String date = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
-                // TODO: 2020/3/24 0024 modify file path
-                String path = ApplicationContext.getInstance().getFilesDir().getPath();
-                String fullPath = path + date + ".txt";
-                FileUtil.saveFile(new File(fullPath), err);
-
+                try {
+                    Date now = new Date();
+                    String date = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
+                    String path = Path.getLogPath();
+                    String fullPath = path + File.separator + date + ".txt";
+                    FileUtil.saveFile(new File(fullPath), err);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -1,6 +1,8 @@
 package com.smasher.core.path;
 
 
+import android.os.Environment;
+
 /**
  * @author lin
  * @date 2017/7/5
@@ -17,12 +19,12 @@ public class Path {
         return AppPath.getLogPath();
     }
 
-    public static String getCachePath() {
-        return AppPath.getCachePath();
+    public static String getDownloadPath() {
+        return AppPath.getExternalPath(Environment.DIRECTORY_DOWNLOADS);
     }
 
-    public static String getDownloadPath() {
-        return AppPath.getDownloadPath();
+    public static String getCachePath() {
+        return AppPath.getCachePath();
     }
 
     public static String getFontsPath() {
@@ -31,10 +33,6 @@ public class Path {
 
     public static String getImagePath() {
         return AppPath.getImagePath();
-    }
-
-    public static String getPicturePath() {
-        return AppPath.getPicturePath();
     }
 
 }

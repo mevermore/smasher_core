@@ -28,6 +28,9 @@ public class AppPath {
         String result = "";
         File dir = null;
         Application app = ApplicationContext.getInstance();
+        if (app == null) {
+            return result;
+        }
 
         try {
             String state = Environment.getExternalStorageState();
@@ -36,11 +39,11 @@ public class AppPath {
                 /*/storage/emulated/0/Android/data/packagename/files/*/
                 File file = app.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
                 if (file != null) {
-                    //result = file.getParent();
-                    File gap = file.getParentFile();
-                    if (gap != null) {
-                        result = gap.getParent();
-                    }
+                    result = file.getParent();
+//                    File gap = file.getParentFile();
+//                    if (gap != null) {
+//                        result = gap.getParent();
+//                    }
                 }
             }
 
@@ -69,7 +72,7 @@ public class AppPath {
             return "";
         }
 
-        String result = getRootPath() +File.separator + subName;
+        String result = getRootPath() + File.separator + subName;
         File dir = new File(result);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -89,8 +92,24 @@ public class AppPath {
         return null;
     }
 
-    protected static String getDownloadPath() {
-        File file = ApplicationContext.getInstance().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+
+    /**
+     * Environment.DIRECTORY_PICTURES
+     *
+     * @param type The type of files directory to return. May be {@code null}
+     *             for the root of the files directory or one of the following
+     *             constants for a subdirectory:
+     *             {@link android.os.Environment#DIRECTORY_MUSIC},
+     *             {@link android.os.Environment#DIRECTORY_PODCASTS},
+     *             {@link android.os.Environment#DIRECTORY_RINGTONES},
+     *             {@link android.os.Environment#DIRECTORY_ALARMS},
+     *             {@link android.os.Environment#DIRECTORY_NOTIFICATIONS},
+     *             {@link android.os.Environment#DIRECTORY_PICTURES}, or
+     *             {@link android.os.Environment#DIRECTORY_MOVIES}.
+     * @return ExternalPath
+     */
+    protected static String getExternalPath(String type) {
+        File file = ApplicationContext.getInstance().getExternalFilesDir(type);
         if (file != null) {
             if (!file.exists()) {
                 file.mkdirs();
@@ -100,16 +119,6 @@ public class AppPath {
         return null;
     }
 
-    protected static String getPicturePath() {
-        File file = ApplicationContext.getInstance().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        if (file != null) {
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-            return file.getAbsolutePath();
-        }
-        return null;
-    }
 
     protected static String getFontsPath() {
         return getSubPath("fonts");
