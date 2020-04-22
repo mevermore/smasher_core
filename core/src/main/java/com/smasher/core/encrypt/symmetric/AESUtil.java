@@ -42,6 +42,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import static com.smasher.core.encrypt.base.BaseUtils.parseByte2HexStr;
@@ -56,7 +57,8 @@ public class AESUtil {
 
     @IntDef({Cipher.ENCRYPT_MODE, Cipher.DECRYPT_MODE})
     @Retention(RetentionPolicy.SOURCE)
-    @interface AESType {}
+    @interface AESType {
+    }
 
     /**
      * Aes加密/解密
@@ -70,7 +72,6 @@ public class AESUtil {
     public static String aes(String content, String password, @AESType int type) {
         try {
             KeyGenerator generator = KeyGenerator.getInstance("AES");
-
             SecureRandom secureRandom;
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 secureRandom = SecureRandom.getInstance(SHA1PRNG, new CryptoProvider());
@@ -101,4 +102,97 @@ public class AESUtil {
         }
         return null;
     }
+
+
+    //region #1
+    private AESUtil() {
+        throw new UnsupportedOperationException("constrontor cannot be init");
+    }
+
+    /**
+     * 生成秘钥
+     *
+     * @return
+     */
+    public static byte[] generateKey() {
+
+        KeyGenerator keyGen = null;
+        try {
+            // 秘钥生成器
+            keyGen = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // 初始秘钥生成器
+        keyGen.init(256);
+        // 生成秘钥
+        SecretKey secretKey = keyGen.generateKey();
+        // 获取秘钥字节数组
+        return secretKey.getEncoded();
+    }
+
+    /**
+     * 加密
+     *
+     * @return
+     */
+    public static byte[] encrypt(byte[] data, byte[] key) {
+        // 恢复秘钥
+        SecretKey secretKey = new SecretKeySpec(key, "AES");
+        Cipher cipher = null;
+        byte[] cipherBytes = null;
+        try {
+            // 对Cipher完成加密或解密工作
+            cipher = Cipher.getInstance("AES");
+            // 对Cipher初始化,加密模式
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            // 加密数据
+            cipherBytes = cipher.doFinal(data);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+        return cipherBytes;
+    }
+
+    /**
+     * 解密
+     *
+     * @return
+     */
+    public static byte[] decrypt(byte[] data, byte[] key) {
+        // 恢复秘钥
+        SecretKey secretKey = new SecretKeySpec(key, "AES");
+        Cipher cipher = null;
+        byte[] plainBytes = null;
+
+        try {
+            // 对Cipher初始化,加密模式
+            cipher = Cipher.getInstance("AES");
+            // 对Cipher初始化,加密模式
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            // 解密数据
+            plainBytes = cipher.doFinal(data);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+        return plainBytes;
+    }
+    //end region
 }
