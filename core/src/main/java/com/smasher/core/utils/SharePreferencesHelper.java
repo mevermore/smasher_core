@@ -18,6 +18,7 @@ import java.util.Map;
  * @author moyu
  * @date 2019/4/2
  */
+@Deprecated
 public class SharePreferencesHelper {
 
     private static final String CONFIG = "share_data";

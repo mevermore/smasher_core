@@ -30,7 +30,7 @@ public class TouchUtil {
      */
     public static boolean isLockScreen(Context context) {
         KeyguardManager mKeyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-        if (mKeyguardManager.inKeyguardRestrictedInputMode()) {
+        if (mKeyguardManager.isKeyguardLocked()) {
             return true;
         }
         return false;

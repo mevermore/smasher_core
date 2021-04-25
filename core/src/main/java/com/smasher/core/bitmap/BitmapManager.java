@@ -46,7 +46,7 @@ public class BitmapManager {
     }
 
     private static boolean hasHoneycomb() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+        return true;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

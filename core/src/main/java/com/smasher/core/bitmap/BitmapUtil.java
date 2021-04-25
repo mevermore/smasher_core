@@ -21,6 +21,7 @@ import com.smasher.core.log.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * BitmapUtil
@@ -244,9 +245,7 @@ public class BitmapUtil {
      */
     public static Bitmap createColorBitmap(int w, int h, int color) {
         int[] colors = new int[w * h];
-        for (int i = 0; i < colors.length; i++) {
-            colors[i] = color;
-        }
+        Arrays.fill(colors, color);
         return Bitmap.createBitmap(colors, w, h, Bitmap.Config.ARGB_8888);
     }
 

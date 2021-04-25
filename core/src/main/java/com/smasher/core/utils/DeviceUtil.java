@@ -1,5 +1,6 @@
 package com.smasher.core.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -231,6 +232,7 @@ public class DeviceUtil {
      *
      * @return String
      */
+    @SuppressLint({"MissingPermission", "HardwareIds"})
     @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getIMEI() {
         String id = "";
@@ -253,6 +255,7 @@ public class DeviceUtil {
      *
      * @return String
      */
+    @SuppressLint("MissingPermission")
     @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getIMSI() {
         String id = "";
@@ -270,6 +273,7 @@ public class DeviceUtil {
      *
      * @return String
      */
+    @SuppressLint("MissingPermission")
     @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getSimSerial() {
         String id = "";
