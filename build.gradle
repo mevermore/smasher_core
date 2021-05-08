@@ -6,12 +6,12 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
-        
+        mavenCentral()
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
-        
+        classpath 'com.android.tools.build:gradle:4.2.0'
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -21,11 +21,13 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+
         maven {
-            url 'http://127.0.0.1:8081/repository/maven-releases'  //这个路径就是Browse下maven-release右边有一个copy按钮，复制出来的。
+            url 'http://127.0.0.1:8081/repository/maven-releases'
+            //这个路径就是Browse下maven-release右边有一个copy按钮，复制出来的。
         }
-        
+
     }
 }
 

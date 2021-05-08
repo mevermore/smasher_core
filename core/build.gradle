@@ -44,11 +44,11 @@ uploadArchives {
                 authentication(userName: 'admin', password: 'admin')
             }
             pom.project {
-                version '2.0.0'
+                version '2.0.2'
                 artifactId 'core'
                 groupId 'com.smasher.primary'
                 packaging 'aar'
-                description 'init version 2.0.0'
+                description 'init version 2.0.2'
             }
         }
     }
