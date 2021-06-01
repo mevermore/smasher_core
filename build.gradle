@@ -5,8 +5,10 @@ buildscript {
     apply from: 'version.gradle'
 
     repositories {
-        google()
-        mavenCentral()
+//        google()
+//        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
 
     }
     dependencies {
@@ -20,8 +22,10 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+//        google()
+//        mavenCentral()
 
         maven {
             url 'http://127.0.0.1:8081/repository/maven-releases'
