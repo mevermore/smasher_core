@@ -1,0 +1,223 @@
+apply plugin: 'maven-publish'
+//
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            //定义插件的在本地 maven 中的 id
+//            groupId 'com.smasher.primary'
+//            artifactId 'core'
+//            //定义插件的在本地 maven 中的版本号
+//            version '2.0.3-test1'
+////            packaging 'aar'
+//            from components.java
+////            artifact "build/outputs/aar/core-release.aar"
+////            pom {
+////                name = "Demo"
+////                description = "A demonstration of Maven POM customization"
+////                url = "http://www.example.com/project"
+////                licenses {
+////                    license {
+////                        name = "The Apache License, Version 2.0"
+////                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+////                    }
+////                }
+////            }
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+//            // 发布位置
+//            url uri('http://127.0.0.1:8081/repository/maven-releases/')
+//            credentials {
+//                username 'admin'
+//                password 'admin'
+//            }
+//        }
+//    }
+//}
+
+
+
+publishing {
+    publications {
+        mavenCore(MavenPublication) {
+            //定义插件的在本地 maven 中的 id
+            groupId 'com.smasher.primary'
+            artifactId 'core'
+            //定义插件的在本地 maven 中的版本号
+            version '2.0.3-test1'
+            artifact "build/outputs/aar/core-release.aar"
+//            packaging 'aar'
+//            from components.java
+//            artifact "build/outputs/aar/core-release.aar"
+//            pom {
+//                name = "Demo"
+//                description = "A demonstration of Maven POM customization"
+//                url = "http://www.example.com/project"
+//                licenses {
+//                    license {
+//                        name = "The Apache License, Version 2.0"
+//                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+//                    }
+//                }
+//            }
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.compile.allDependencies.each {
+                    println 'it.name='+it.name+"  it.group="+it.group
+                    if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+                        println 'it.name='+it.name
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                        if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                            dependencyNode.appendNode('type', 'aar')
+                        }
+
+                    }
+                }
+
+                configurations.api.allDependencies.each {
+                    if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                        if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                            dependencyNode.appendNode('type', 'aar')
+                        }
+
+                    }
+                }
+
+                configurations.implementation.allDependencies.each {
+                    if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                        if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                            dependencyNode.appendNode('type', 'aar')
+                        }
+
+                    }
+                }
+
+
+
+                if (getGradle().startParameter.toString().contains("assembleDebug")) {
+                    configurations.debugCompile.allDependencies.each {
+                        if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                                dependencyNode.appendNode('type', 'aar')
+                            }
+
+                        }
+                    }
+                    configurations.debugApi.allDependencies.each {
+                        if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                                dependencyNode.appendNode('type', 'aar')
+                            }
+
+                        }
+                    }
+
+                    configurations.debugImplementation.allDependencies.each {
+                        if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                                dependencyNode.appendNode('type', 'aar')
+                            }
+
+                        }
+                    }
+
+
+                } else {
+                    configurations.releaseCompile.allDependencies.each {
+                        if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                                dependencyNode.appendNode('type', 'aar')
+                            }
+
+                        }
+                    }
+
+                    configurations.releaseApi.allDependencies.each {
+                        if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                                dependencyNode.appendNode('type', 'aar')
+                            }
+
+                        }
+                    }
+
+                    configurations.releaseImplementation.allDependencies.each {
+                        if (it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null) {
+
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            if (it.group == groupId && project.getRootProject().aarMap.contains(it.name)) {
+                                dependencyNode.appendNode('type', 'aar')
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            // 发布位置
+            url uri('http://127.0.0.1:8081/repository/maven-releases/')
+            credentials {
+                username 'admin'
+                password 'admin'
+            }
+        }
+    }
+}
+
+//编译发布到maven
+task deploy{
+    dependsOn tasks.clean
+    dependsOn tasks.build
+    dependsOn tasks.publish
+    tasks.preBuild.mustRunAfter(tasks.clean)
+    //👇
+    tasks.generatePomFileForMavenCorePublication.mustRunAfter(tasks.build)
+}
+
+
